@@ -1,0 +1,13 @@
+name: BTB
+version: '${version}'
+main: de.tert0.btb.BTB
+api-version: '1.20'
+
+commands:
+  test:
+    description: Test
+    usage: /<command>
+  btbteam:
+    description: Join BTB Team
+  start:
+    description: Start a BTB Game
