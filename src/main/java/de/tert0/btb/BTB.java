@@ -12,6 +12,7 @@ import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.CraftingRecipe;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.*;
@@ -33,6 +34,7 @@ public final class BTB extends JavaPlugin {
     public Map<Team, List<Player>> teams;
     public List<Player> deadPlayers;
     public Map<Team, Boolean> teamStates;
+    public Map<Team, Inventory> teamChests;
     public Scoreboard scoreboard;
     public Objective objective;
 
@@ -92,6 +94,7 @@ public final class BTB extends JavaPlugin {
         btbWorld.setGameRule(GameRule.DO_WEATHER_CYCLE, false);
         btbWorld.setGameRule(GameRule.SPAWN_RADIUS, 0);
         btbWorld.setGameRule(GameRule.DO_MOB_SPAWNING, false);
+        btbWorld.setGameRule(GameRule.KEEP_INVENTORY, false);
         btbWorld.setTime(1000);
         btbWorld.setStorm(false);
         btbWorld.setClearWeatherDuration(0);
@@ -107,6 +110,11 @@ public final class BTB extends JavaPlugin {
             teams.put(team, new ArrayList<>());
         }
 
+        teamChests = new HashMap<>();
+        for(Team team : Team.values()) {
+            teamChests.put(team, Bukkit.createInventory(null, 9*4, Component.text("Teamchest", team.color)));
+        }
+
         getServer().getPluginManager().registerEvents(new HandlePlayerJoin(), this);
         getServer().getPluginManager().registerEvents(new HandlePlayerLeave(), this);
         getServer().getPluginManager().registerEvents(new HandlePlayerDamage(), this);
@@ -116,6 +124,7 @@ public final class BTB extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new HandlePlayerDeath(), this);
         getServer().getPluginManager().registerEvents(new HandlePlayerRespawn(), this);
         getServer().getPluginManager().registerEvents(new HandleSmithingInventory(), this);
+        getServer().getPluginManager().registerEvents(new HandleEnderchest(), this);
         Objects.requireNonNull(getCommand("btbteam")).setExecutor(new BTBTeamCommand());
         Objects.requireNonNull(getCommand("start")).setExecutor(new StartCommand());
 
