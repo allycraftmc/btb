@@ -115,6 +115,7 @@ public final class BTB extends JavaPlugin {
             teamChests.put(team, Bukkit.createInventory(null, 9*4, Component.text("Teamchest", team.color)));
         }
 
+        getServer().getPluginManager().registerEvents(new HandlePlayerLogin(), this);
         getServer().getPluginManager().registerEvents(new HandlePlayerJoin(), this);
         getServer().getPluginManager().registerEvents(new HandlePlayerLeave(), this);
         getServer().getPluginManager().registerEvents(new HandlePlayerDamage(), this);

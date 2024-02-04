@@ -18,20 +18,6 @@ import java.util.Objects;
 public class HandlePlayerJoin implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
-        if(BTB.getPlugin().gameState == GameState.Initialization) {
-            e.joinMessage(null);
-            e.getPlayer().kick(Component.text("Server is not ready to start!", NamedTextColor.RED));
-            return;
-        }
-        if(BTB.getPlugin().gameState == GameState.Playing || BTB.getPlugin().gameState == GameState.End) {
-            if(e.getPlayer().hasPermission("btb.spectate")) {
-                BTB.getPlugin().addSpectator(e.getPlayer());
-                return;
-            }
-            e.joinMessage(null);
-            e.getPlayer().kick(Component.text("Cannot join running game!", NamedTextColor.RED));
-            return;
-        }
         if(!e.getPlayer().getWorld().getName().equals("world")) {
             e.getPlayer().teleport((Objects.requireNonNull(Bukkit.getWorld("world"))).getSpawnLocation());
         }
