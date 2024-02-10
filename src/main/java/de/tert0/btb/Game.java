@@ -82,6 +82,9 @@ public class Game {
 
         plugin.updateTeamStates();
 
+        plugin.timerRunnable = new TimerRunnable(plugin);
+        plugin.timerTask = plugin.getServer().getScheduler().runTaskTimer(plugin, plugin.timerRunnable, 0, 20);
+
         plugin.gameState = GameState.Playing;
 
         return true;

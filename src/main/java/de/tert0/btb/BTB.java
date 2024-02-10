@@ -15,6 +15,7 @@ import org.bukkit.inventory.CraftingRecipe;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.scoreboard.*;
 
 import java.io.File;
@@ -37,6 +38,8 @@ public final class BTB extends JavaPlugin {
     public Map<Team, Inventory> teamChests;
     public Scoreboard scoreboard;
     public Objective objective;
+    public TimerRunnable timerRunnable;
+    public BukkitTask timerTask;
 
     @Override
     public void onEnable() {
@@ -157,6 +160,10 @@ public final class BTB extends JavaPlugin {
         scoreboard = scoreboardManager.getNewScoreboard();
         objective = scoreboard.registerNewObjective("teams", Criteria.DUMMY, Component.text("Allycraft - BTB"));
 
+        org.bukkit.scoreboard.Team eTeam = scoreboard.registerNewTeam("SCOREBOARD_EMPTY");
+        eTeam.addEntry(" ");
+        objective.getScore(" ").setScore(Team.values().length + 1);
+
         int i = Team.values().length;
         for(Team team : Team.values()) {
             i--;
@@ -178,7 +185,11 @@ public final class BTB extends JavaPlugin {
         for(Team team : Team.values()) {
             org.bukkit.scoreboard.Team sTeam = scoreboard.getTeam(team.name + "_SIDEBAR");
             assert sTeam != null;
-            sTeam.suffix(Component.text(teamStates.get(team) ? "✔" : "❌", teamStates.get(team) ? NamedTextColor.GREEN : NamedTextColor.RED));
+            sTeam.suffix(
+                    Component.text(
+                            (teamStates.get(team) ? "✔" : "❌") + " ".repeat(15-team.name.length()),
+                            teamStates.get(team) ? NamedTextColor.GREEN : NamedTextColor.RED)
+            );
         }
     }
 
@@ -216,6 +227,15 @@ public final class BTB extends JavaPlugin {
                 btbWorld.getPlayers().forEach(p -> p.setGameMode(GameMode.SPECTATOR));
                 gameState = GameState.End;
             }
+        }
+
+        if(gameState == GameState.End) {
+            timerTask.cancel();
+            getServer().broadcast(
+                    Component.text("Dieses Spiel hat ")
+                            .append(timerRunnable.getComponent())
+                            .append(Component.text(" gedauert."))
+            );
         }
     }
 }
