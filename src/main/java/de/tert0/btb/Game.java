@@ -4,6 +4,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.DisplaySlot;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
@@ -70,9 +71,10 @@ public class Game {
             }
         });
 
+        BTB.getPlugin().objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+
         for(Map.Entry<Team, List<Player>> entry : plugin.teams.entrySet()) {
             for(Player player : entry.getValue()) {
-                player.setScoreboard(plugin.scoreboard);
                 player.teleport(entry.getKey().getSpawnPoint(plugin.btbWorld));
             }
         }

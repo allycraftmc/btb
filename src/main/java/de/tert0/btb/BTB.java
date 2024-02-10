@@ -156,23 +156,27 @@ public final class BTB extends JavaPlugin {
         ScoreboardManager scoreboardManager = this.getServer().getScoreboardManager();
         scoreboard = scoreboardManager.getNewScoreboard();
         objective = scoreboard.registerNewObjective("teams", Criteria.DUMMY, Component.text("Allycraft - BTB"));
-        objective.setDisplaySlot(DisplaySlot.SIDEBAR);
 
         int i = Team.values().length;
         for(Team team : Team.values()) {
             i--;
             Component name = Component.text(team.name, team.color)
                     .append(Component.text(": "));
-            org.bukkit.scoreboard.Team sTeam = scoreboard.registerNewTeam(team.name);
+            org.bukkit.scoreboard.Team sTeam = scoreboard.registerNewTeam(team.name + "_SIDEBAR");
             sTeam.addEntry(LegacyComponentSerializer.legacySection().serialize(name));
             sTeam.suffix(Component.text("?"));
             objective.getScore(LegacyComponentSerializer.legacySection().serialize(name)).setScore(i);
+
+            org.bukkit.scoreboard.Team nTeam = scoreboard.registerNewTeam(team.name);
+            nTeam.color(team.color);
+            nTeam.setAllowFriendlyFire(false);
+            nTeam.setCanSeeFriendlyInvisibles(true);
         }
     }
 
     public void updateScoreboard() {
         for(Team team : Team.values()) {
-            org.bukkit.scoreboard.Team sTeam = scoreboard.getTeam(team.name);
+            org.bukkit.scoreboard.Team sTeam = scoreboard.getTeam(team.name + "_SIDEBAR");
             assert sTeam != null;
             sTeam.suffix(Component.text(teamStates.get(team) ? "✔" : "❌", teamStates.get(team) ? NamedTextColor.GREEN : NamedTextColor.RED));
         }

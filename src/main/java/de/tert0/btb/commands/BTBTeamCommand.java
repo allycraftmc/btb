@@ -57,6 +57,10 @@ public class BTBTeamCommand implements CommandExecutor {
         player.displayName(displayName);
         player.playerListName(displayName);
 
+        org.bukkit.scoreboard.Team nTeam = BTB.getPlugin().scoreboard.getTeam(team.name);
+        assert nTeam != null;
+        nTeam.addPlayer(player);
+
         BTB.getPlugin().game.try_start();
         return true;
     }

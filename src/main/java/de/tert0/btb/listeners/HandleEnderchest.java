@@ -12,7 +12,7 @@ import org.bukkit.inventory.Inventory;
 public class HandleEnderchest implements Listener {
     @EventHandler
     public void onOpenEnderchest(PlayerInteractEvent event) {
-        if(event.getAction() != Action.RIGHT_CLICK_AIR) return;
+        if(event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
         if(event.getClickedBlock() == null) return;
         if(event.getClickedBlock().getType() != Material.ENDER_CHEST) return;
 

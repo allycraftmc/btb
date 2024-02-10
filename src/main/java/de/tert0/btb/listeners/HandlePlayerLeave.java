@@ -16,7 +16,12 @@ public class HandlePlayerLeave implements Listener {
     @EventHandler
     public void onPlayerLeave(PlayerQuitEvent e) {
         for(Map.Entry<Team, List<Player>> entry : BTB.getPlugin().teams.entrySet()) {
-            entry.getValue().remove(e.getPlayer());
+            if(entry.getValue().contains(e.getPlayer())) {
+                entry.getValue().remove(e.getPlayer());
+                org.bukkit.scoreboard.Team nTeam = BTB.getPlugin().scoreboard.getTeam(entry.getKey().name);
+                assert nTeam != null;
+                nTeam.removePlayer(e.getPlayer());
+            }
         }
         if(BTB.getPlugin().gameState == GameState.Playing) BTB.getPlugin().updateTeamStates();
 

@@ -16,10 +16,7 @@ public class HandlePlayerLogin implements Listener {
             return;
         }
         if(BTB.getPlugin().gameState == GameState.Playing || BTB.getPlugin().gameState == GameState.End) {
-            if(e.getPlayer().hasPermission("btb.spectate")) {
-                BTB.getPlugin().addSpectator(e.getPlayer());
-                return;
-            }
+            if(e.getPlayer().hasPermission("btb.spectate")) return;
             e.disallow(PlayerLoginEvent.Result.KICK_OTHER, Component.text("Cannot join running game!", NamedTextColor.RED));
         }
     }

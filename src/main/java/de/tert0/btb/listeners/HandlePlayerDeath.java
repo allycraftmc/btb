@@ -27,7 +27,7 @@ public class HandlePlayerDeath implements Listener {
 
         BTB.getPlugin().updateTeamStates();
 
-        AtomicInteger count = new AtomicInteger(30);
+        AtomicInteger count = new AtomicInteger(25);
         BTB.getPlugin().getServer().getScheduler().runTaskTimer(BTB.getPlugin(), task -> {
             if(!e.getPlayer().isOnline()) {
                 task.cancel();
