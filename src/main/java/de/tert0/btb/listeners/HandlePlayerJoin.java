@@ -6,7 +6,6 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -22,7 +21,7 @@ public class HandlePlayerJoin implements Listener {
 
         if(BTB.getPlugin().gameState == GameState.Playing || BTB.getPlugin().gameState == GameState.End) {
             if(e.getPlayer().hasPermission("btb.spectate")) {
-                BTB.getPlugin().addSpectator(e.getPlayer());
+                BTB.getPlugin().game.addSpectator(e.getPlayer());
             }
             else {
                 e.getPlayer().kick(Component.text("Permission denied. Unknown error!", NamedTextColor.DARK_RED));
@@ -34,12 +33,7 @@ public class HandlePlayerJoin implements Listener {
             e.getPlayer().teleport((Objects.requireNonNull(Bukkit.getWorld("world"))).getSpawnLocation());
         }
 
-        player.getInventory().clear();
-        player.getEnderChest().clear();
-        player.setExp(0.0f);
-        player.setHealth(20.0f);
-        player.setFoodLevel(20);
-        player.setGameMode(GameMode.SURVIVAL);
+        BTB.getPlugin().game.resetPlayer(player);
 
 
         player.sendMessage(MiniMessage.miniMessage().deserialize("<rainbow>Hier könnte eine Erklärung stehen!</rainbow><newline><green>TODO</green>"));

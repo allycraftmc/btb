@@ -23,6 +23,11 @@ public class HandlePlayerLeave implements Listener {
                 nTeam.removePlayer(e.getPlayer());
             }
         }
+
+        if(BTB.getPlugin().game.isSpectator(e.getPlayer())) {
+            BTB.getPlugin().game.removeSpectator(e.getPlayer());
+        }
+
         if(BTB.getPlugin().gameState == GameState.Playing) BTB.getPlugin().updateTeamStates();
 
         if(BTB.getPlugin().gameState != GameState.Lobby) {

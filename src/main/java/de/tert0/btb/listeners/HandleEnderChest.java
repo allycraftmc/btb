@@ -9,9 +9,9 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 
-public class HandleEnderchest implements Listener {
+public class HandleEnderChest implements Listener {
     @EventHandler
-    public void onOpenEnderchest(PlayerInteractEvent event) {
+    public void onOpenEnderChest(PlayerInteractEvent event) {
         if(event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
         if(event.getClickedBlock() == null) return;
         if(event.getClickedBlock().getType() != Material.ENDER_CHEST) return;

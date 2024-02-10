@@ -65,7 +65,7 @@ public final class BTB extends JavaPlugin {
         }
 
         try {
-            logger.info("Files in template world: " + FileUtils.listFilesAndDirs(new File("template"), new WildcardFileFilter("*"), new WildcardFileFilter("*")).toString());
+            logger.info("Files in template world: " + FileUtils.listFilesAndDirs(new File("template"), new WildcardFileFilter("*"), new WildcardFileFilter("*")));
             FileUtils.copyDirectory(new File("template"), new File("btb"));
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -112,7 +112,7 @@ public final class BTB extends JavaPlugin {
 
         teamChests = new HashMap<>();
         for(Team team : Team.values()) {
-            teamChests.put(team, Bukkit.createInventory(null, 9*4, Component.text("Teamchest", team.color)));
+            teamChests.put(team, Bukkit.createInventory(null, 9*4, Component.text("TeamChest", team.color)));
         }
 
         getServer().getPluginManager().registerEvents(new HandlePlayerLogin(), this);
@@ -125,7 +125,7 @@ public final class BTB extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new HandlePlayerDeath(), this);
         getServer().getPluginManager().registerEvents(new HandlePlayerRespawn(), this);
         getServer().getPluginManager().registerEvents(new HandleSmithingInventory(), this);
-        getServer().getPluginManager().registerEvents(new HandleEnderchest(), this);
+        getServer().getPluginManager().registerEvents(new HandleEnderChest(), this);
         Objects.requireNonNull(getCommand("btbteam")).setExecutor(new BTBTeamCommand());
         Objects.requireNonNull(getCommand("start")).setExecutor(new StartCommand());
 
@@ -217,10 +217,5 @@ public final class BTB extends JavaPlugin {
                 gameState = GameState.End;
             }
         }
-    }
-
-    public void addSpectator(Player player) {
-        player.setGameMode(GameMode.SPECTATOR);
-        player.teleport(btbWorld.getSpawnLocation());
     }
 }

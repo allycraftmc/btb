@@ -19,8 +19,11 @@ public class BTBTeamCommand implements CommandExecutor {
             return false;
         }
         if(BTB.getPlugin().gameState != GameState.Lobby) {
-            commandSender.sendMessage(Component.text("It is currently not possible to chose a team!", NamedTextColor.RED));
-            return false;
+            // Spectators can join a team during the game
+            if(!BTB.getPlugin().game.isSpectator(player) || BTB.getPlugin().gameState != GameState.Playing) {
+                commandSender.sendMessage(Component.text("It is currently not possible to chose a team!", NamedTextColor.RED));
+                return false;
+            }
         }
 
         if(args.length != 1) {
@@ -41,6 +44,13 @@ public class BTBTeamCommand implements CommandExecutor {
             return false;
         }
 
+        if(BTB.getPlugin().game.isSpectator(player)) {
+            if(!BTB.getPlugin().teamStates.get(team)) {
+                commandSender.sendMessage(Component.text("The team is not in the game!", NamedTextColor.RED));
+                return false;
+            }
+        }
+
         Team currentTeam = Team.getByPlayer(player);
         if(currentTeam != null) {
             if(currentTeam == team) {
@@ -52,15 +62,23 @@ public class BTBTeamCommand implements CommandExecutor {
         }
 
         BTB.getPlugin().teams.get(team).add(player);
-        commandSender.sendMessage(Component.text("You joined Team ").append(Component.text(team.name, team.color)));
         Component displayName = Component.text(player.getName(), team.color);
         player.displayName(displayName);
         player.playerListName(displayName);
 
+        // Note: Player does not need to be removed from the previous team, as Minecraft takes care of that.
+        // (Each Player/Entity can be at most in one team)
         org.bukkit.scoreboard.Team nTeam = BTB.getPlugin().scoreboard.getTeam(team.name);
         assert nTeam != null;
         nTeam.addPlayer(player);
 
+        if(BTB.getPlugin().game.isSpectator(player)) {
+            BTB.getPlugin().game.removeSpectator(player);
+            BTB.getPlugin().game.resetPlayer(player);
+            player.teleport(team.getSpawnPoint(BTB.getPlugin().btbWorld));
+        }
+
+        commandSender.sendMessage(Component.text("You joined Team ").append(Component.text(team.name, team.color)));
         BTB.getPlugin().game.try_start();
         return true;
     }

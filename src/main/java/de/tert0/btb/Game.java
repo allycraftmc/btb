@@ -3,19 +3,19 @@ package de.tert0.btb;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
 
-import javax.annotation.Nullable;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Game {
     private final BTB plugin;
     private final AtomicBoolean starting = new AtomicBoolean(false);
+
+    private final Set<Player> spectators = new HashSet<>();
     public Game(BTB plugin) {
         this.plugin = plugin;
     }
@@ -64,7 +64,7 @@ public class Game {
             Team team = Team.getByPlayer(p);
             if(team == null) {
                 if(p.hasPermission("btb.spectate")) {
-                    plugin.addSpectator(p);
+                    this.addSpectator(p);
                 } else {
                     p.kick(Component.text("You are not allowed to spectate the game!", NamedTextColor.DARK_RED));
                 }
@@ -75,6 +75,7 @@ public class Game {
 
         for(Map.Entry<Team, List<Player>> entry : plugin.teams.entrySet()) {
             for(Player player : entry.getValue()) {
+                this.resetPlayer(player);
                 player.teleport(entry.getKey().getSpawnPoint(plugin.btbWorld));
             }
         }
@@ -84,5 +85,30 @@ public class Game {
         plugin.gameState = GameState.Playing;
 
         return true;
+    }
+
+
+    public void addSpectator(Player player) {
+        player.setGameMode(GameMode.SPECTATOR);
+        player.teleport(plugin.btbWorld.getSpawnLocation());
+        this.spectators.add(player);
+    }
+
+    public void removeSpectator(Player player) {
+        if(!this.isSpectator(player)) return;
+        this.spectators.remove(player);
+    }
+
+    public boolean isSpectator(Player player) {
+        return this.spectators.contains(player);
+    }
+
+    public void resetPlayer(Player player) {
+        player.getInventory().clear();
+        player.getEnderChest().clear();
+        player.setExp(0.0f);
+        player.setHealth(20.0f);
+        player.setFoodLevel(20);
+        player.setGameMode(GameMode.SURVIVAL);
     }
 }

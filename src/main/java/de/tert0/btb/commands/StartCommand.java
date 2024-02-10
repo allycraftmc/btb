@@ -1,19 +1,12 @@
 package de.tert0.btb.commands;
 
 import de.tert0.btb.BTB;
-import de.tert0.btb.GameState;
-import de.tert0.btb.Team;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
-import java.util.Map;
 
 public class StartCommand implements CommandExecutor {
     @Override
