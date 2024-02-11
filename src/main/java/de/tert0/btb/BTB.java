@@ -8,7 +8,6 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.kyori.adventure.title.Title;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.CraftingRecipe;
@@ -68,7 +67,6 @@ public final class BTB extends JavaPlugin {
         }
 
         try {
-            logger.info("Files in template world: " + FileUtils.listFilesAndDirs(new File("template"), new WildcardFileFilter("*"), new WildcardFileFilter("*")));
             FileUtils.copyDirectory(new File("template"), new File("btb"));
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -158,11 +156,24 @@ public final class BTB extends JavaPlugin {
     void initializeScoreboard() {
         ScoreboardManager scoreboardManager = this.getServer().getScoreboardManager();
         scoreboard = scoreboardManager.getNewScoreboard();
-        objective = scoreboard.registerNewObjective("teams", Criteria.DUMMY, Component.text("Allycraft - BTB"));
+        objective = scoreboard.registerNewObjective("teams", Criteria.DUMMY, Component.text("AllyCraft - BTB", NamedTextColor.YELLOW));
 
-        org.bukkit.scoreboard.Team eTeam = scoreboard.registerNewTeam("SCOREBOARD_EMPTY");
-        eTeam.addEntry(" ");
-        objective.getScore(" ").setScore(Team.values().length + 1);
+        org.bukkit.scoreboard.Team emptyAboveTeam = scoreboard.registerNewTeam("SCOREBOARD_EMPTY_ABOVE");
+        emptyAboveTeam.addEntry(" ");
+        objective.getScore(" ").setScore(Team.values().length + 4);
+
+        org.bukkit.scoreboard.Team timerNameTeam = scoreboard.registerNewTeam("SCOREBOARD_TIMER_NAME");
+        timerNameTeam.addEntry("Zeit:");
+        objective.getScore("Zeit:").setScore(Team.values().length + 3);
+
+        org.bukkit.scoreboard.Team timerValueTeam = scoreboard.registerNewTeam("SCOREBOARD_TIMER_VALUE");
+        timerValueTeam.addEntry(LegacyComponentSerializer.legacySection().serialize(Component.text("", NamedTextColor.WHITE).append(Component.text("", NamedTextColor.RED))));
+        timerValueTeam.suffix(Component.text("??:??:??"));
+        objective.getScore(LegacyComponentSerializer.legacySection().serialize(Component.text("", NamedTextColor.WHITE).append(Component.text("", NamedTextColor.RED)))).setScore(Team.values().length + 2);
+
+        org.bukkit.scoreboard.Team emptyBelowTeam = scoreboard.registerNewTeam("SCOREBOARD_EMPTY_BELOW");
+        emptyBelowTeam.addEntry("  ");
+        objective.getScore("  ").setScore(Team.values().length + 1);
 
         int i = Team.values().length;
         for(Team team : Team.values()) {
@@ -231,11 +242,6 @@ public final class BTB extends JavaPlugin {
 
         if(gameState == GameState.End) {
             timerTask.cancel();
-            getServer().broadcast(
-                    Component.text("Dieses Spiel hat ")
-                            .append(timerRunnable.getComponent())
-                            .append(Component.text(" gedauert."))
-            );
         }
     }
 }
