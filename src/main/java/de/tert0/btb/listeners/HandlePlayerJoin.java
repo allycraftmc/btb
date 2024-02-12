@@ -36,7 +36,8 @@ public class HandlePlayerJoin implements Listener {
         BTB.getPlugin().game.resetPlayer(player);
 
 
-        player.sendMessage(MiniMessage.miniMessage().deserialize("<rainbow>Hier könnte eine Erklärung stehen!</rainbow><newline><green>TODO</green>"));
-        // TODO explain game
+        player.sendMessage(MiniMessage.miniMessage().deserialize("<green>Willkommen bei BTB</green>\n" +
+                "<white>Eure Aufgabe ist es so schnell wie möglich den Turm zu erklimmen und die Gegner auszuschalten.\n" +
+                "Während dem erklimmen könnt ihr <dark_red>Truhen</dark_red> finden die wichtige Items enthalten.</white>"));
     }
 }
