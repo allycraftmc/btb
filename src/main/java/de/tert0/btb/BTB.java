@@ -1,5 +1,6 @@
 package de.tert0.btb;
 
+import de.tert0.btb.commands.BTBRoleCommand;
 import de.tert0.btb.commands.BTBTeamCommand;
 import de.tert0.btb.commands.StartCommand;
 import de.tert0.btb.listeners.*;
@@ -32,6 +33,7 @@ public final class BTB extends JavaPlugin {
     Logger logger;
 
     public Map<Team, List<Player>> teams;
+    public Map<UUID, Role> roles;
     public List<Player> deadPlayers;
     public Map<Team, Boolean> teamStates;
     public Map<Team, Inventory> teamChests;
@@ -105,6 +107,7 @@ public final class BTB extends JavaPlugin {
         for(Team team : Team.values()) {
             teams.put(team, new ArrayList<>());
         }
+        roles = new HashMap<>();
         deadPlayers = new ArrayList<>();
         teamStates = new HashMap<>();
         for(Team team : Team.values()) {
@@ -127,7 +130,9 @@ public final class BTB extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new HandlePlayerRespawn(), this);
         getServer().getPluginManager().registerEvents(new HandleSmithingInventory(), this);
         getServer().getPluginManager().registerEvents(new HandleEnderChest(), this);
+        getServer().getPluginManager().registerEvents(new HandlePlayerInteract(), this);
         Objects.requireNonNull(getCommand("btbteam")).setExecutor(new BTBTeamCommand());
+        Objects.requireNonNull(getCommand("btbrole")).setExecutor(new BTBRoleCommand());
         Objects.requireNonNull(getCommand("start")).setExecutor(new StartCommand());
 
         getServer().getRecipesFor(new ItemStack(Material.SMITHING_TABLE)).forEach(recipe -> {
@@ -231,7 +236,7 @@ public final class BTB extends JavaPlugin {
             }
             case 1 -> {
                 Component message = Component.text("Team ")
-                        .append(Component.text(teamsAlive.get(0).name, teamsAlive.get(0).color))
+                        .append(Component.text(teamsAlive.getFirst().name, teamsAlive.getFirst().color))
                         .append(Component.text(" hat gewonnen!"));
                 getServer().broadcast(message);
                 getServer().showTitle(Title.title(message, Component.empty()));

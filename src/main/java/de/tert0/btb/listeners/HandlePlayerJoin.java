@@ -2,6 +2,7 @@ package de.tert0.btb.listeners;
 
 import de.tert0.btb.BTB;
 import de.tert0.btb.GameState;
+import de.tert0.btb.Role;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -34,10 +35,12 @@ public class HandlePlayerJoin implements Listener {
         }
 
         BTB.getPlugin().game.resetPlayer(player);
+        BTB.getPlugin().roles.put(player.getUniqueId(), Role.getRandomRole());
 
 
-        player.sendMessage(MiniMessage.miniMessage().deserialize("<green>Willkommen bei BTB</green>\n" +
-                "<white>Eure Aufgabe ist es so schnell wie möglich den Turm zu erklimmen und die Gegner auszuschalten.\n" +
-                "Während dem erklimmen könnt ihr <dark_red>Truhen</dark_red> finden die wichtige Items enthalten.</white>"));
+        player.sendMessage(MiniMessage.miniMessage().deserialize("""
+                <green>Willkommen bei BTB</green>
+                <white>Eure Aufgabe ist es so schnell wie möglich den Turm zu erklimmen und die Gegner auszuschalten.
+                Während dem erklimmen könnt ihr <dark_red>Truhen</dark_red> finden die wichtige Items enthalten.</white>"""));
     }
 }

@@ -15,6 +15,7 @@ import java.util.Map;
 public class HandlePlayerLeave implements Listener {
     @EventHandler
     public void onPlayerLeave(PlayerQuitEvent e) {
+        BTB.getPlugin().roles.remove(e.getPlayer().getUniqueId());
         for(Map.Entry<Team, List<Player>> entry : BTB.getPlugin().teams.entrySet()) {
             if(entry.getValue().contains(e.getPlayer())) {
                 entry.getValue().remove(e.getPlayer());

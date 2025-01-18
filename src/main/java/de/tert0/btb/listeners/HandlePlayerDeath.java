@@ -1,6 +1,7 @@
 package de.tert0.btb.listeners;
 
 import de.tert0.btb.BTB;
+import de.tert0.btb.CustomItem;
 import de.tert0.btb.GameState;
 import de.tert0.btb.Team;
 import net.kyori.adventure.text.Component;
@@ -11,6 +12,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
+import java.util.Currency;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class HandlePlayerDeath implements Listener {
@@ -24,6 +26,8 @@ public class HandlePlayerDeath implements Listener {
         BTB.getPlugin().deadPlayers.add(e.getPlayer());
 
         BTB.getPlugin().updateTeamStates();
+
+        e.getDrops().removeIf(item -> item.getPersistentDataContainer().has(CustomItem.KEY));
 
         AtomicInteger count = new AtomicInteger(25);
         BTB.getPlugin().getServer().getScheduler().runTaskTimer(BTB.getPlugin(), task -> {

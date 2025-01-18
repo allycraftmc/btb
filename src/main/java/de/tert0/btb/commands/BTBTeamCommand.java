@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 public class BTBTeamCommand implements CommandExecutor {
     @Override
-    public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
+    public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String label, @NotNull String @NotNull [] args) {
         if(!(commandSender instanceof Player player)) {
             commandSender.sendMessage(Component.text("command must be run by an player!", NamedTextColor.RED));
             return false;
@@ -30,7 +30,7 @@ public class BTBTeamCommand implements CommandExecutor {
         }
 
         if(args.length != 1) {
-            commandSender.sendMessage(Component.text("usage: /" + s + " <team>"));
+            commandSender.sendMessage(Component.text("usage: /" + label + " <team>"));
             return false;
         }
 
@@ -87,6 +87,7 @@ public class BTBTeamCommand implements CommandExecutor {
         if(BTB.getPlugin().game.isSpectator(player)) {
             BTB.getPlugin().game.removeSpectator(player);
             BTB.getPlugin().game.resetPlayer(player);
+            BTB.getPlugin().game.setupPlayer(player);
             player.teleport(team.getSpawnPoint(BTB.getPlugin().btbWorld));
         }
 

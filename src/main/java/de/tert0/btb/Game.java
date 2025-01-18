@@ -4,7 +4,12 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scoreboard.DisplaySlot;
 
 import java.util.*;
@@ -76,6 +81,7 @@ public class Game {
         for(Map.Entry<Team, List<Player>> entry : plugin.teams.entrySet()) {
             for(Player player : entry.getValue()) {
                 this.resetPlayer(player);
+                this.setupPlayer(player);
                 player.teleport(entry.getKey().getSpawnPoint(plugin.btbWorld));
             }
         }
@@ -113,5 +119,25 @@ public class Game {
         player.setHealth(20.0f);
         player.setFoodLevel(20);
         player.setGameMode(GameMode.SURVIVAL);
+    }
+
+    public void setupPlayer(Player player) {
+        switch (Role.getByPlayer(player)) {
+            case Role.Knight -> {
+                // Give Lighter
+                ItemStack itemStack = new ItemStack(Material.LIGHTNING_ROD);
+                ItemMeta itemMeta = itemStack.getItemMeta();
+                itemMeta.customName(Component.text("Lighter", NamedTextColor.GOLD));
+                itemMeta.getPersistentDataContainer().set(CustomItem.KEY, PersistentDataType.STRING, CustomItem.Lighter.id);
+                itemStack.setItemMeta(itemMeta);
+                player.getInventory().addItem(itemStack);
+            }
+            case Role.Healer -> {
+                // TODO
+            }
+            case Role.Tank -> {
+                // TODO
+            }
+        }
     }
 }

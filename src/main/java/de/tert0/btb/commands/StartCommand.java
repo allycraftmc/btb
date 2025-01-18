@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class StartCommand implements CommandExecutor {
     @Override
-    public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
+    public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String @NotNull [] strings) {
         if(!commandSender.hasPermission("btb.start")) {
             commandSender.sendMessage(Component.text("Permission denied.", NamedTextColor.RED));
             return false;
