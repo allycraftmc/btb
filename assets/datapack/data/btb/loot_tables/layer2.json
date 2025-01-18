@@ -1,0 +1,78 @@
+{
+    "type": "minecraft:chest",
+    "pools": [
+      {
+        "rolls": 1,
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "minecraft:book",
+            "functions": [
+              {
+                "function": "minecraft:set_count",
+                "count": {
+                  "type": "minecraft:binomial",
+                  "n": 48,
+                  "p": 64
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "rolls": 1,
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "minecraft:obsidian",
+            "functions": [
+              {
+                "function": "minecraft:set_count",
+                "count": {
+                  "min": 5,
+                  "max": 8
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "rolls": 3,
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "weight": 3,
+            "name": "minecraft:arrow",
+            "functions": [
+              {
+                "function": "minecraft:set_count",
+                "count": {
+                  "type": "minecraft:binomial",
+                  "n": 4,
+                  "p": 16
+                }
+              }
+            ]
+          },
+          {
+            "type": "minecraft:item",
+            "weight": 7,
+            "name": "minecraft:experience_bottle",
+            "functions": [
+              {
+                "function": "minecraft:set_count",
+                "count": {
+                  "type": "minecraft:binomial",
+                  "n": 12,
+                  "p": 26
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+  

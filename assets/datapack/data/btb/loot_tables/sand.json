@@ -1,0 +1,111 @@
+{
+    "type": "minecraft:archaeology",
+    "pools": [
+      {
+        "rolls": 1,
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "weight": 5,
+            "name": "minecraft:bow",
+            "functions": [
+              {
+                "function": "minecraft:enchant_randomly"
+              }
+            ]
+          },
+          {
+            "type": "minecraft:item",
+            "weight": 15,
+            "name": "minecraft:raw_iron"
+          },
+          {
+            "type": "minecraft:item",
+            "weight": 5,
+            "name": "minecraft:diamond"
+          },
+          {
+            "type": "minecraft:item",
+            "weight": 2,
+            "name": "minecraft:lingering_potion",
+            "functions": [
+              {
+                "function": "minecraft:set_potion",
+                "id": "minecraft:poison"
+              }
+            ]
+          },
+          {
+            "type": "minecraft:item",
+            "weight": 5,
+            "name": "minecraft:potion",
+            "functions": [
+              {
+                "function": "minecraft:set_potion",
+                "id": "minecraft:strong_healing"
+              }
+            ]
+          },
+          {
+            "type": "minecraft:item",
+            "weight": 5,
+            "name": "minecraft:splash_potion",
+            "functions": [
+              {
+                "function": "minecraft:set_potion",
+                "id": "minecraft:regeneration"
+              }
+            ]
+          },
+          {
+            "type": "minecraft:item",
+            "weight": 5,
+            "name": "minecraft:splash_potion",
+            "functions": [
+              {
+                "function": "minecraft:set_potion",
+                "id": "minecraft:slow_falling"
+              }
+            ]
+          },
+          {
+            "type": "minecraft:item",
+            "weight": 5,
+            "name": "minecraft:splash_potion",
+            "functions": [
+              {
+                "function": "minecraft:set_potion",
+                "id": "minecraft:invisibility"
+              }
+            ]
+          },
+          {
+            "type": "minecraft:item",
+            "weight": 20,
+            "name": "minecraft:book",
+            "functions": [
+              {
+                "function": "minecraft:enchant_randomly"
+              }
+            ]
+          },
+          {
+            "type": "minecraft:item",
+            "weight": 10,
+            "name": "minecraft:sand"
+          },
+          {
+            "type": "minecraft:item",
+            "weight": 13,
+            "name": "minecraft:golden_apple"
+          },
+          {
+            "type": "minecraft:item",
+            "weight": 10,
+            "name": "minecraft:totem_of_undying"
+          }
+        ]
+      }
+    ]
+  }
+  

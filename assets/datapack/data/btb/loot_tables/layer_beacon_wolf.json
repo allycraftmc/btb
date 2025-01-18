@@ -1,0 +1,36 @@
+{
+    "type": "minecraft:chest",
+    "pools": [
+      {
+        "rolls": {
+          "min": 1,
+          "max": 2
+        },
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "minecraft:wolf_spawn_egg"
+          }
+        ]
+      },
+      {
+        "rolls": 1,
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "minecraft:bone",
+            "functions": [
+              {
+                "function": "minecraft:set_count",
+                "count": {
+                  "min": 5,
+                  "max": 8
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+  

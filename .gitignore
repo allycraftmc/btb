@@ -118,4 +118,14 @@ run/
 !gradle-wrapper.jar
 
 # Test Server
-data
+/data/
+
+# Nix
+/result
+
+# Minecraft Maps
+assets/lobby-world/
+assets/map-world/
+
+# Env File
+.env

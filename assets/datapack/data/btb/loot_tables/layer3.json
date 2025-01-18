@@ -1,0 +1,50 @@
+{
+    "type": "minecraft:chest",
+    "pools": [
+      {
+        "rolls": 16,
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "minecraft:arrow",
+            "functions": [
+              {
+                "function": "minecraft:set_count",
+                "count": {
+                  "type": "minecraft:binomial",
+                  "n": 8,
+                  "p": 24
+                }
+              }
+            ]
+          },
+          {
+            "type": "minecraft:item",
+            "weight": 2,
+            "name": "minecraft:gunpowder",
+            "functions": [
+              {
+                "function": "minecraft:set_count",
+                "count": {
+                  "type": "minecraft:binomial",
+                  "n": 8,
+                  "p": 24
+                }
+              }
+            ]
+          },
+          {
+            "type": "minecraft:item",
+            "name": "minecraft:cobweb",
+            "functions": [
+              {
+                "function": "minecraft:set_count",
+                "count": 8
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+  
