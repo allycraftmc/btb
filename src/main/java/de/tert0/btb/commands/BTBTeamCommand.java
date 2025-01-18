@@ -11,6 +11,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 public class BTBTeamCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
@@ -35,7 +38,16 @@ public class BTBTeamCommand implements CommandExecutor {
         try {
             team = Team.valueOf(args[0]);
         } catch (IllegalArgumentException e) {
-            commandSender.sendMessage(Component.text("invalid team name", NamedTextColor.RED));
+            commandSender.sendMessage(
+                    Component.text("invalid team name (", NamedTextColor.RED)
+                            .append(
+                                    Component.text(
+                                            Arrays.stream(Team.values()).map(Enum::toString).collect(Collectors.joining(", ")),
+                                            NamedTextColor.GOLD
+                                    )
+                            )
+                            .append(Component.text(")", NamedTextColor.RED))
+            );
             return false;
         }
 

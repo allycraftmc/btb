@@ -198,7 +198,7 @@ public final class BTB extends JavaPlugin {
             assert sTeam != null;
             sTeam.suffix(
                     Component.text(
-                            (teamStates.get(team) ? "✔" : "❌") + " ".repeat(15-team.name.length()),
+                            (teamStates.get(team) ? "✔" : "❌"),
                             teamStates.get(team) ? NamedTextColor.GREEN : NamedTextColor.RED)
             );
         }
