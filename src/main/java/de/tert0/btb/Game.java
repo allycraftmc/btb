@@ -6,10 +6,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.potion.PotionType;
 import org.bukkit.scoreboard.DisplaySlot;
 
 import java.util.*;
@@ -133,10 +134,23 @@ public class Game {
                 player.getInventory().addItem(itemStack);
             }
             case Role.Healer -> {
-                // TODO
+                // Give Infinite Heal Potion
+                ItemStack itemStack = new ItemStack(Material.SPLASH_POTION);
+                PotionMeta potionMetaMeta = (PotionMeta) itemStack.getItemMeta();
+                potionMetaMeta.customName(Component.text("Infinite Heal Potion", NamedTextColor.GOLD));
+                potionMetaMeta.getPersistentDataContainer().set(CustomItem.KEY, PersistentDataType.STRING, CustomItem.InfinitePotion.id);
+                potionMetaMeta.setBasePotionType(PotionType.HEALING);
+                itemStack.setItemMeta(potionMetaMeta);
+                player.getInventory().addItem(itemStack);
             }
             case Role.Tank -> {
-                // TODO
+                // Give Barrier
+                ItemStack itemStack = new ItemStack(Material.BARRIER);
+                ItemMeta itemMeta = itemStack.getItemMeta();
+                itemMeta.customName(Component.text("Invincibility Barrier", NamedTextColor.GOLD));
+                itemMeta.getPersistentDataContainer().set(CustomItem.KEY, PersistentDataType.STRING, CustomItem.DamageBarrier.id);
+                itemStack.setItemMeta(itemMeta);
+                player.getInventory().addItem(itemStack);
             }
         }
     }

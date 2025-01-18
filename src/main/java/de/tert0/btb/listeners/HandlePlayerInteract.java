@@ -3,12 +3,17 @@ package de.tert0.btb.listeners;
 import de.tert0.btb.*;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.LightningStrike;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.RayTraceResult;
 
 public class HandlePlayerInteract implements Listener {
@@ -30,6 +35,7 @@ public class HandlePlayerInteract implements Listener {
                                 .append(Component.text(itemType.role.name, NamedTextColor.GOLD))
                                 .append(Component.text(" can use this item!", NamedTextColor.RED))
                 );
+                event.setCancelled(true);
                 return;
             }
             switch(itemType) {
@@ -50,11 +56,26 @@ public class HandlePlayerInteract implements Listener {
                     }
                 }
                 case InfinitePotion -> {
+                    if(!event.getAction().isRightClick()) return;
+
+                    EquipmentSlot hand = event.getHand();
+                    ItemStack item = event.getItem().clone();
+                    if(hand == null) return;
+                    Bukkit.getScheduler().runTaskLater(BTB.getPlugin(), task -> {
+                        if(!player.isValid()) return;
+                        if(player.getEquipment().getItem(hand).isEmpty()) {
+                            player.getEquipment().setItem(hand, item);
+                        }
+                    }, 1);
                 }
                 case CustomItem.DamageBarrier -> {
+                    if(!event.getAction().isRightClick()) return;
 
-                }
-                case null -> {
+                    // TODO play sound
+
+                    int duration = 5; // s
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, 20*duration, 255, false, false, true));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 20*duration, 1, false, false, true));
                 }
             }
         }
