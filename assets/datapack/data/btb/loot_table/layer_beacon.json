@@ -1,29 +1,28 @@
 {
-    "type": "minecraft:chest",
-    "pools": [
-      {
-        "rolls": 1,
-        "entries": [
-          {
-            "type": "minecraft:loot_table",
-            "name": "btb:layer_beacon_enchanted_books"
-          },
-          {
-            "type": "minecraft:item",
-            "name": "minecraft:ender_pearl",
-            "functions": [
-              {
-                "function": "minecraft:set_count",
-                "count": 6
-              }
-            ]
-          },
-          {
-            "type": "minecraft:loot_table",
-            "name": "btb:layer_beacon_wolf"
-          }
-        ]
-      }
-    ]
-  }
-  
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "value": "btb:layer_beacon_enchanted_books"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:ender_pearl",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 6
+            }
+          ]
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "btb:layer_beacon_wolf"
+        }
+      ]
+    }
+  ]
+}
