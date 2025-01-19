@@ -4,7 +4,7 @@ services:
     restart: always
     volumes:
       - "./assets/map-world:/data/template:ro"
-      - "./assets/datapack:/worlds/lobby/datapacks/btb:ro"
+      - "./assets/datapack:/data/datapacks/btb:ro"
       - "./assets/lobby-world:/worlds/lobby:ro"
       - "./build/libs/btb-1.0-SNAPSHOT.jar:/plugins/btb-1.0-SNAPSHOT.jar:ro"
     environment:
@@ -14,6 +14,7 @@ services:
       - "VERSION=1.21.4"
       - "SPAWN_PROTECTION=0"
       - "WORLD=/worlds/lobby"
+      - "DATAPACKS=/data/datapacks/btb"
       - "FORCE_WORLD_COPY=TRUE"
     env_file: .env
     tty: true
