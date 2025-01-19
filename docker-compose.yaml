@@ -7,6 +7,7 @@ services:
       - "./assets/datapack:/data/datapacks/btb:ro"
       - "./assets/lobby-world:/worlds/lobby:ro"
       - "./build/libs/btb-1.0-SNAPSHOT.jar:/plugins/btb-1.0-SNAPSHOT.jar:ro"
+      - "./assets/patches/dev:/patches:ro"
     environment:
       - "EULA=true"
       - "TYPE=PAPER"
@@ -16,6 +17,7 @@ services:
       - "WORLD=/worlds/lobby"
       - "DATAPACKS=/data/datapacks/btb"
       - "FORCE_WORLD_COPY=TRUE"
+      - "PATCH_DEFINITIONS=/patches"
     env_file: .env
     tty: true
     stdin_open: true
