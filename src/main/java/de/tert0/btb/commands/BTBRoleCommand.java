@@ -51,6 +51,7 @@ public class BTBRoleCommand implements CommandExecutor {
         }
 
         BTB.getPlugin().roles.put(player.getUniqueId(), role);
+        BTB.getPlugin().updatePlayerName(player);
         commandSender.sendMessage(Component.text("You have successfully selected ", NamedTextColor.GREEN).append(Component.text(role.name, NamedTextColor.GOLD)));
         return true;
     }

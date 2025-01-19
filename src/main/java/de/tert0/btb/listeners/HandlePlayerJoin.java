@@ -36,6 +36,7 @@ public class HandlePlayerJoin implements Listener {
 
         BTB.getPlugin().game.resetPlayer(player);
         BTB.getPlugin().roles.put(player.getUniqueId(), Role.getRandomRole());
+        BTB.getPlugin().updatePlayerName(player);
 
 
         player.sendMessage(MiniMessage.miniMessage().deserialize("""

@@ -1,19 +1,23 @@
 package de.tert0.btb;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
 public enum Role {
-    Knight("KNIGHT"),
-    Healer("HEALER"),
-    Tank("TANK");
+    Knight("KNIGHT", Component.text(" [K]", NamedTextColor.DARK_RED)),
+    Healer("HEALER", Component.text(" [H]", NamedTextColor.DARK_GREEN)),
+    Tank("TANK", Component.text(" [T]", NamedTextColor.DARK_BLUE)),;
 
     private static final Random random = new Random();
     public final String name;
-    Role(String name) {
+    public final Component suffix;
+    Role(String name, Component suffix) {
         this.name = name;
+        this.suffix = suffix;
     }
 
     public static Role getRandomRole() {
@@ -26,6 +30,7 @@ public enum Role {
         if(role == null) {
             role = getRandomRole();
             BTB.getPlugin().roles.put(player.getUniqueId(), role);
+            BTB.getPlugin().updatePlayerName(player);
         }
         return role;
     }

@@ -74,9 +74,7 @@ public class BTBTeamCommand implements CommandExecutor {
         }
 
         BTB.getPlugin().teams.get(team).add(player);
-        Component displayName = Component.text(player.getName(), team.color);
-        player.displayName(displayName);
-        player.playerListName(displayName);
+        BTB.getPlugin().updatePlayerName(player);
 
         // Note: Player does not need to be removed from the previous team, as Minecraft takes care of that.
         // (Each Player/Entity can be at most in one team)

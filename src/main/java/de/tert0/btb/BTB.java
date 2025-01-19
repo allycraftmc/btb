@@ -256,4 +256,12 @@ public final class BTB extends JavaPlugin {
             cooldownShowTask.cancel();
         }
     }
+
+    public void updatePlayerName(Player player) {
+        Team team = Team.getByPlayer(player);
+        Component name = Component.text(player.getName(),team  == null ? NamedTextColor.WHITE : team.color)
+                .append(Role.getByPlayer(player).suffix);
+        player.displayName(name);
+        player.playerListName(name);
+    }
 }
