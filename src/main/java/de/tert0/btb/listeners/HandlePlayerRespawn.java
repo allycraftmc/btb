@@ -30,6 +30,7 @@ public class HandlePlayerRespawn implements Listener {
                 e.setRespawnLocation(Constants.RESPAWN_CHAMBER);
             } else {
                 e.setRespawnLocation(team.getSpawnPoint(BTB.getPlugin().btbWorld));
+                BTB.getPlugin().game.setupPlayer(e.getPlayer());
             }
         } else if(BTB.getPlugin().gameState == GameState.End) {
             Team team = Team.getByPlayer(e.getPlayer());

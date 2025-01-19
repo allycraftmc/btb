@@ -37,10 +37,14 @@ public final class BTB extends JavaPlugin {
     public List<Player> deadPlayers;
     public Map<Team, Boolean> teamStates;
     public Map<Team, Inventory> teamChests;
+    public CooldownManager cooldownManager;
+
     public Scoreboard scoreboard;
     public Objective objective;
+
     public TimerRunnable timerRunnable;
     public BukkitTask timerTask;
+    public BukkitTask cooldownShowTask;
 
     @Override
     public void onEnable() {
@@ -118,6 +122,8 @@ public final class BTB extends JavaPlugin {
         for(Team team : Team.values()) {
             teamChests.put(team, Bukkit.createInventory(null, 9*4, Component.text("TeamChest", team.color)));
         }
+        cooldownManager = new CooldownManager();
+
 
         getServer().getPluginManager().registerEvents(new HandlePlayerLogin(), this);
         getServer().getPluginManager().registerEvents(new HandlePlayerJoin(), this);
@@ -247,6 +253,7 @@ public final class BTB extends JavaPlugin {
 
         if(gameState == GameState.End) {
             timerTask.cancel();
+            cooldownShowTask.cancel();
         }
     }
 }

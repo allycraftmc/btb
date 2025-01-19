@@ -1,18 +1,19 @@
 package de.tert0.btb;
 
-import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 
 public enum CustomItem {
-    Lighter("lighter", Role.Knight),
-    InfinitePotion("infinite_potion", Role.Healer),
-    DamageBarrier("damage_barrier", Role.Tank),;
+    Lighter("lighter", Role.Knight, 10),
+    InfinitePotion("infinite_potion", Role.Healer, 5),
+    DamageBarrier("damage_barrier", Role.Tank, 10);
 
     public final String id;
     public final Role role;
-    CustomItem(String id, Role role) {
+    public final int cooldown;
+    CustomItem(String id, Role role, int cooldown) {
         this.id = id;
         this.role = role;
+        this.cooldown = cooldown;
     }
 
     public static final NamespacedKey KEY = new NamespacedKey(BTB.getPlugin(), "custom_item");

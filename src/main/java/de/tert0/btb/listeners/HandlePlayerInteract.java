@@ -4,8 +4,10 @@ import de.tert0.btb.*;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
+import org.bukkit.block.TileState;
 import org.bukkit.entity.LightningStrike;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -29,6 +31,13 @@ public class HandlePlayerInteract implements Listener {
                 return;
             }
 
+            if(!event.getAction().isRightClick()) return;
+
+            if(event.getClickedBlock() != null && event.getClickedBlock().getState() instanceof TileState) {
+                event.setUseItemInHand(Event.Result.DENY);
+                return;
+            }
+
             if(!itemType.role.equals(Role.getByPlayer(player))) {
                 player.sendActionBar(
                         Component.text("Only players of the role ", NamedTextColor.RED)
@@ -38,10 +47,19 @@ public class HandlePlayerInteract implements Listener {
                 event.setCancelled(true);
                 return;
             }
+
+            int cooldown = BTB.getPlugin().cooldownManager.getCooldown(player.getUniqueId(), itemType);
+            if(cooldown != 0) {
+                player.sendActionBar(
+                        Component.text("You cannot use it now. Cooldown: ", NamedTextColor.RED)
+                                .append(Component.text(cooldown, NamedTextColor.GOLD))
+                );
+                event.setCancelled(true);
+                return;
+            }
+
             switch(itemType) {
                 case CustomItem.Lighter -> {
-                    if(!event.getAction().isRightClick()) return;
-
                     RayTraceResult result = player.getWorld().rayTraceEntities(player.getEyeLocation(), player.getLocation().getDirection(), 50, target_entity -> {
                         if(target_entity instanceof Player target) {
                             return !BTB.getPlugin().game.isSpectator(target) && Team.getByPlayer(target) != Team.getByPlayer(player);
@@ -51,13 +69,12 @@ public class HandlePlayerInteract implements Listener {
                     if(result != null && result.getHitEntity() != null && result.getHitEntity() instanceof Player target) {
                         LightningStrike lightning = player.getWorld().strikeLightning(target.getLocation());
                         lightning.setCausingPlayer(player);
+                        BTB.getPlugin().cooldownManager.addCooldown(player.getUniqueId(), itemType);
                     } else {
                         player.sendActionBar(Component.text("No target found", NamedTextColor.RED));
                     }
                 }
                 case InfinitePotion -> {
-                    if(!event.getAction().isRightClick()) return;
-
                     EquipmentSlot hand = event.getHand();
                     ItemStack item = event.getItem().clone();
                     if(hand == null) return;
@@ -65,6 +82,7 @@ public class HandlePlayerInteract implements Listener {
                         if(!player.isValid()) return;
                         if(player.getEquipment().getItem(hand).isEmpty()) {
                             player.getEquipment().setItem(hand, item);
+                            BTB.getPlugin().cooldownManager.addCooldown(player.getUniqueId(), itemType);
                         }
                     }, 1);
                 }
@@ -76,6 +94,7 @@ public class HandlePlayerInteract implements Listener {
                     int duration = 5; // s
                     player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, 20*duration, 255, false, false, true));
                     player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 20*duration, 1, false, false, true));
+                    BTB.getPlugin().cooldownManager.addCooldown(player.getUniqueId(), itemType);
                 }
             }
         }

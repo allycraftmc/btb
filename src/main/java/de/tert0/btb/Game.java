@@ -92,6 +92,29 @@ public class Game {
         plugin.timerRunnable = new TimerRunnable(plugin);
         plugin.timerTask = plugin.getServer().getScheduler().runTaskTimer(plugin, plugin.timerRunnable, 0, 20);
 
+
+        plugin.cooldownShowTask = plugin.getServer().getScheduler().runTaskTimer(plugin, () -> {
+            for(Map.Entry<Team, List<Player>> entry : plugin.teams.entrySet()) {
+                for(Player player : entry.getValue()) {
+                    Role role = Role.getByPlayer(player);
+                    if(plugin.deadPlayers.contains(player)) continue;
+                    if(!player.getInventory().getItemInMainHand().getPersistentDataContainer().has(CustomItem.KEY, PersistentDataType.STRING)) continue;
+                    // TOOD use offhand as fallback
+                    CustomItem customItem = CustomItem.getById(player.getInventory().getItemInMainHand().getPersistentDataContainer().get(CustomItem.KEY, PersistentDataType.STRING));
+                    if(customItem == null) continue;
+                    if(customItem.role != role) continue;
+                    int cooldown = plugin.cooldownManager.getCooldown(player.getUniqueId(), customItem);
+                    if(cooldown == 0) {
+                        player.sendActionBar(Component.text("Item ready to use!", NamedTextColor.GREEN));
+                    } else {
+                        player.sendActionBar(
+                                Component.text("Cooldown: ", NamedTextColor.YELLOW)
+                                        .append(Component.text(cooldown, NamedTextColor.GOLD))
+                        );
+                    }
+                }
+            }
+        }, 0, 10);
         plugin.gameState = GameState.Playing;
 
         return true;
