@@ -127,5 +127,9 @@ run/
 assets/lobby-world/
 assets/map-world/
 
-# Env File
-.env
+# Env Files
+.env.dev
+.env.prod
+
+# Direnv
+.direnv/

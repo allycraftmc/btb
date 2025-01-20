@@ -12,13 +12,24 @@ gradle build
 ```
 Now you can start the development server with docker compose and join with multiple clients
 ```bash
+docker compose -f docker-compose.dev.yaml up
+```
+Or if you use `nix develop` / direnv:
+```bash
 docker compose up
 ```
 To configure the server you can use `.env`.
 See the documentation of the docker image for options: https://docker-minecraft-server.readthedocs.io/en/latest/
 
 ## Deploy to production
-TODO
+TODO/WIP
+```bash
+docker compose -f docker-compose.prod.yaml up
+```
+Or with `nix develop .#prod`
+```bash
+docker compose up
+```
 ## License
 ```
 BTB: Bedrock Tower Battle Minecraft Minigame Plugin
