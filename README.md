@@ -12,23 +12,18 @@ gradle build
 ```
 Now you can start the development server with docker compose and join with multiple clients
 ```bash
-docker compose -f docker-compose.dev.yaml up
-```
-Or if you use `nix develop` / direnv:
-```bash
 docker compose up
 ```
-To configure the server you can use `.env`.
+To configure the server you can use `.env.dev`.
 See the documentation of the docker image for options: https://docker-minecraft-server.readthedocs.io/en/latest/
-
 ## Deploy to production
-TODO/WIP
+TODO
+To upload world assets and the build plugin jar to a production sever you can use `btb-prod-upload`:
 ```bash
-docker compose -f docker-compose.prod.yaml up
-```
-Or with `nix develop .#prod`
-```bash
-docker compose up
+# Enter nix develop shell / Or use direnv
+nix develop
+
+btb-prod-upload <user>@<host> <remote_base_path>
 ```
 ## License
 ```

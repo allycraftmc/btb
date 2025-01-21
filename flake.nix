@@ -11,15 +11,11 @@
   }: let
     system = "x86_64-linux";
     pkgs = import nixpkgs {inherit system;};
+    btb-prod-upload = pkgs.writeShellScriptBin "btb-prod-upload" (builtins.readFile ./scripts/prod-upload.sh);
   in {
     devShells.${system} = {
       default = pkgs.mkShell {
-        buildInputs = with pkgs; [openjdk];
-        COMPOSE_FILE = "docker-compose.dev.yaml";
-      };
-      prod = pkgs.mkShell {
-        buildInputs = with pkgs; [openjdk];
-        COMPOSE_FILE = "docker-compose.prod.yaml";
+        buildInputs = with pkgs; [openjdk btb-prod-upload];
       };
     };
   };
