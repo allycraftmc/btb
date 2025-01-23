@@ -137,6 +137,7 @@ public final class BTB extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new HandleSmithingInventory(), this);
         getServer().getPluginManager().registerEvents(new HandleEnderChest(), this);
         getServer().getPluginManager().registerEvents(new HandlePlayerInteract(), this);
+        getServer().getPluginManager().registerEvents(new HandlePlayerArmorChange(), this);
         Objects.requireNonNull(getCommand("btbteam")).setExecutor(new BTBTeamCommand());
         Objects.requireNonNull(getCommand("btbrole")).setExecutor(new BTBRoleCommand());
         Objects.requireNonNull(getCommand("start")).setExecutor(new StartCommand());
