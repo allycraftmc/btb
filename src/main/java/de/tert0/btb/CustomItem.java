@@ -3,9 +3,9 @@ package de.tert0.btb;
 import org.bukkit.NamespacedKey;
 
 public enum CustomItem {
-    Lighter("lighter", Role.Knight, 10),
-    InfinitePotion("infinite_potion", Role.Healer, 5),
-    DamageBarrier("damage_barrier", Role.Tank, 10);
+    Lighter("lighter", Role.Knight, 16),
+    InfinitePotion("infinite_potion", Role.Healer, 8),
+    DamageBarrier("damage_barrier", Role.Tank, 24);
 
     public final String id;
     public final Role role;

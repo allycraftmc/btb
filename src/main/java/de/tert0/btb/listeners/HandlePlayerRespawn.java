@@ -28,6 +28,7 @@ public class HandlePlayerRespawn implements Listener {
                 e.getPlayer().setGameMode(GameMode.SPECTATOR);
             } else if(BTB.getPlugin().deadPlayers.contains(e.getPlayer())) {
                 e.setRespawnLocation(Constants.RESPAWN_CHAMBER);
+                BTB.getPlugin().game.setupPlayer(e.getPlayer());
             } else {
                 e.setRespawnLocation(team.getSpawnPoint(BTB.getPlugin().btbWorld));
                 BTB.getPlugin().game.setupPlayer(e.getPlayer());
