@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+set -euo pipefail
 if [ "$#" -lt 2 ]; then
   echo "usage: $0 <user>@<server> <path_server>"
   exit 1

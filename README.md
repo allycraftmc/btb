@@ -16,6 +16,15 @@ docker compose up
 ```
 To configure the server you can use `.env.dev`.
 See the documentation of the docker image for options: https://docker-minecraft-server.readthedocs.io/en/latest/
+## Map Building
+TODO
+
+**WARNING: The following could destroy your world. Make a backup!**
+
+To remove empty chunks and player data, you can use `scripts/clean-world.sh` as follows:
+```bash
+nix run .#btb-clean-world <path_to_world>
+```
 ## Deploy to production
 TODO
 To upload world assets and the build plugin jar to a production sever you can use `btb-prod-upload`:
