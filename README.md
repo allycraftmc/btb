@@ -25,6 +25,10 @@ To remove empty chunks and player data, you can use `scripts/clean-world.sh` as 
 ```bash
 nix run .#btb-clean-world <path_to_world>
 ```
+## Configuration
+The plugin can be configured through environment variables.
+- `BTB_MAX_TEAM_SIZE`: Maximal Count of Players per Team. (Default: 2)
+- `BTB_AUTO_START`: Determines if the game starts 10s after all teams are full. (Default: true)
 ## Deploy to production
 TODO
 To upload world assets and the build plugin jar to a production sever you can use `btb-prod-upload`:

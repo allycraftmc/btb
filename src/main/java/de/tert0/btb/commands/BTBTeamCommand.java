@@ -59,7 +59,7 @@ public class BTBTeamCommand implements CommandExecutor {
             }
         }
 
-        if(BTB.getPlugin().teams.get(team).size() == 2) {
+        if(BTB.getPlugin().teams.get(team).size() >= BTB.getPlugin().config.maxTeamSize()) {
             commandSender.sendMessage(Component.text("Team is full!", NamedTextColor.RED));
             return false;
         }

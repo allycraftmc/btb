@@ -28,6 +28,7 @@ public final class BTB extends JavaPlugin {
     public Game game;
     public GameState gameState = GameState.Initialization;
 
+    public Config config;
     public World lobbyWorld;
     public World btbWorld;
     Logger logger;
@@ -50,6 +51,11 @@ public final class BTB extends JavaPlugin {
     public void onEnable() {
         plugin = this;
         logger = this.getLogger();
+
+        config = Config.fromEnv(logger);
+        if(!config.validate(logger)) {
+            config = Config.DEFAULT;
+        }
 
         btbWorld = Bukkit.getWorld("btb");
 

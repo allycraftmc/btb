@@ -27,8 +27,8 @@ public class Game {
     }
 
     boolean can_start() {
-        boolean teamsFull = Arrays.stream(Team.values()).allMatch(team -> plugin.teams.get(team).size() == 2);
-        return teamsFull && plugin.gameState == GameState.Lobby;
+        boolean teamsFull = Arrays.stream(Team.values()).allMatch(team -> plugin.teams.get(team).size() == plugin.config.maxTeamSize());
+        return teamsFull && plugin.gameState == GameState.Lobby && plugin.config.autoStart();
     }
 
     public void try_start() {
