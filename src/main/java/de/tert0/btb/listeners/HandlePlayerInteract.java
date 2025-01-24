@@ -4,6 +4,7 @@ import de.tert0.btb.*;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
+import org.bukkit.FluidCollisionMode;
 import org.bukkit.block.TileState;
 import org.bukkit.entity.LightningStrike;
 import org.bukkit.entity.Player;
@@ -60,12 +61,17 @@ public class HandlePlayerInteract implements Listener {
 
             switch(itemType) {
                 case CustomItem.Lighter -> {
-                    RayTraceResult result = player.getWorld().rayTraceEntities(player.getEyeLocation(), player.getLocation().getDirection(), 50, target_entity -> {
-                        if(target_entity instanceof Player target) {
-                            return !BTB.getPlugin().game.isSpectator(target) && Team.getByPlayer(target) != Team.getByPlayer(player);
-                        }
-                        return false;
-                    });
+                    RayTraceResult result = player.getWorld().rayTrace(
+                            player.getEyeLocation(), player.getLocation().getDirection(),
+                            50, FluidCollisionMode.NEVER, true,
+                            0.0, target_entity -> {
+                                if(target_entity instanceof Player target) {
+                                    return !BTB.getPlugin().game.isSpectator(target) && Team.getByPlayer(target) != Team.getByPlayer(player);
+                                }
+                                return false;
+                            },
+                            null
+                    );
                     if(result != null && result.getHitEntity() != null && result.getHitEntity() instanceof Player target) {
                         LightningStrike lightning = player.getWorld().strikeLightning(target.getLocation());
                         lightning.setCausingPlayer(player);
