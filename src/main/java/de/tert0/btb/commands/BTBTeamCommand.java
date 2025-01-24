@@ -51,6 +51,14 @@ public class BTBTeamCommand implements CommandExecutor {
             return false;
         }
 
+        Team currentTeam = Team.getByPlayer(player);
+        if(currentTeam != null) {
+            if (currentTeam == team) {
+                commandSender.sendMessage(Component.text("You are already in that team!", NamedTextColor.GREEN));
+                return true;
+            }
+        }
+
         if(BTB.getPlugin().teams.get(team).size() == 2) {
             commandSender.sendMessage(Component.text("Team is full!", NamedTextColor.RED));
             return false;
@@ -63,16 +71,7 @@ public class BTBTeamCommand implements CommandExecutor {
             }
         }
 
-        Team currentTeam = Team.getByPlayer(player);
-        if(currentTeam != null) {
-            if(currentTeam == team) {
-                commandSender.sendMessage(Component.text("You are already in that team!", NamedTextColor.GREEN));
-                return true;
-            } else {
-                BTB.getPlugin().teams.get(currentTeam).remove(player);
-            }
-        }
-
+        if(currentTeam != null) BTB.getPlugin().teams.get(currentTeam).remove(player);
         BTB.getPlugin().teams.get(team).add(player);
         BTB.getPlugin().updatePlayerName(player);
 
