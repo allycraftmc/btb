@@ -17,9 +17,14 @@ docker compose up
 To configure the server you can use `.env.dev`.
 See the documentation of the docker image for options: https://docker-minecraft-server.readthedocs.io/en/latest/
 ## Map Building
-TODO
+To change the lobby and/or btb world you can use the `docker-compose.yaml` file in `assets/`.
+Before starting the docker compose stack, configure it using `assets/.env`.
+Set `WORLD_PATH` to either `./lobby-world` or `./map-world` depending on which map you want to change:
+```env
+WORLD_PATH=./lobby-world
+```
 
-**WARNING: The following could destroy your world. Make a backup!**
+**WARNING: The following could destroy your world. Make a backup and check the script to check what exactly it deletes!** 
 
 To remove empty chunks and player data, you can use `scripts/clean-world.sh` as follows:
 ```bash

@@ -8,7 +8,9 @@ services:
       - "./assets/lobby-world:/worlds/lobby:ro"
       - "./build/libs/btb-1.0-SNAPSHOT.jar:/plugins/btb-1.0-SNAPSHOT.jar:ro"
       - "./assets/patches/dev:/patches:ro"
-    env_file: .env.dev
+    env_file:
+      - path: .env.dev
+        required: false
     environment:
       - "EULA=true"
       - "TYPE=PAPER"
