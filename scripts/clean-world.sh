@@ -30,5 +30,10 @@ mcaselector --mode delete --world "$1" --query "Palette = \"air\""
 rm -rf "$1/advancements"
 rm -rf "$1/stats"
 rm -rf "$1/playerdata"
+rm -rf "$1/data"
+rm -f "$1/level.dat_old"
+
+# remove bukkit datapack and btb datapack after mounted in docker
+rm -rf "$1/datapacks"
 
 set +x
