@@ -11,8 +11,14 @@ commands:
   start:
     description: Start a BTB Game
     permission: btb.start
+  hazard:
+    description: Start a Hazard
+    permission: btb.hazard
 
 permissions:
   btb.start:
-    description: "Allows you to use the command /start to instantly start a game"
+    description: "Allows to use the command /start to instantly start a game"
+    default: op
+  btb.hazard:
+    description: "Allows to use the command /hazard to start manually hazards"
     default: op

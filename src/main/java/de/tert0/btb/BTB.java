@@ -2,7 +2,9 @@ package de.tert0.btb;
 
 import de.tert0.btb.commands.BTBRoleCommand;
 import de.tert0.btb.commands.BTBTeamCommand;
+import de.tert0.btb.commands.HazardCommand;
 import de.tert0.btb.commands.StartCommand;
+import de.tert0.btb.hazards.HazardManager;
 import de.tert0.btb.listeners.*;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -39,6 +41,7 @@ public final class BTB extends JavaPlugin {
     public Map<Team, Boolean> teamStates;
     public Map<Team, Inventory> teamChests;
     public CooldownManager cooldownManager;
+    public HazardManager hazardManager;
 
     public Scoreboard scoreboard;
     public Objective objective;
@@ -130,6 +133,7 @@ public final class BTB extends JavaPlugin {
         }
         cooldownManager = new CooldownManager();
 
+        hazardManager = new HazardManager();
 
         getServer().getPluginManager().registerEvents(new HandlePlayerLogin(), this);
         getServer().getPluginManager().registerEvents(new HandlePlayerJoin(), this);
@@ -147,6 +151,7 @@ public final class BTB extends JavaPlugin {
         Objects.requireNonNull(getCommand("btbteam")).setExecutor(new BTBTeamCommand());
         Objects.requireNonNull(getCommand("btbrole")).setExecutor(new BTBRoleCommand());
         Objects.requireNonNull(getCommand("start")).setExecutor(new StartCommand());
+        Objects.requireNonNull(getCommand("hazard")).setExecutor(new HazardCommand());
 
         getServer().getRecipesFor(new ItemStack(Material.SMITHING_TABLE)).forEach(recipe -> {
             if(recipe instanceof CraftingRecipe r) {
