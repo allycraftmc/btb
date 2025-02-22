@@ -99,6 +99,7 @@ public class HandlePlayerInteract implements Listener {
 
                     int duration = 5; // s
                     player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, 20*duration, 255, false, false, true));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, 20*duration, 1, false, false, true));
                     player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 20*duration, 1, false, false, true));
                     BTB.getPlugin().cooldownManager.addCooldown(player.getUniqueId(), itemType);
                 }
