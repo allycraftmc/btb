@@ -20,5 +20,11 @@ permissions:
     description: "Allows to use the command /start to instantly start a game"
     default: op
   btb.hazard:
-    description: "Allows to use the command /hazard to start manually hazards"
+    description: "Allows to use the command /hazard to manually start hazards"
+    default: op
+  btb.team.admin:
+    description: "Allows to set the team of other players"
+    default: op
+  btb.role.admin:
+    description: "Allows to set the role of other players"
     default: op
