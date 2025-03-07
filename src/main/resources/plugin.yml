@@ -28,3 +28,6 @@ permissions:
   btb.role.admin:
     description: "Allows to set the role of other players"
     default: op
+  btb.spectate:
+    description: "Allows to spectate Games"
+    default: true
