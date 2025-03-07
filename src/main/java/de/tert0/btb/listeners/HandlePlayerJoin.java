@@ -40,8 +40,19 @@ public class HandlePlayerJoin implements Listener {
 
 
         player.sendMessage(MiniMessage.miniMessage().deserialize("""
-                <green>Willkommen bei BTB</green>
-                <white>Eure Aufgabe ist es so schnell wie möglich den Turm zu erklimmen und die Gegner auszuschalten.
-                Während dem erklimmen könnt ihr <dark_red>Truhen</dark_red> finden die wichtige Items enthalten.</white>"""));
+                <green>Willkommen bei BTB!</green>
+                <bold><red>Das Ziel:</red></bold> So schnell wie möglich nach oben kommen und die anderen Teams ausschalten.
+                Um das ganze Team auschalten zu können müssen alle von diesem Team tot sein. <red>Respawn nach 20 sekunden</red>
+
+                Kleiner Tipp:
+                Fange am besten an
+                Holz durch Knochenmehl und Setzlinge zu bekommen und baue Leitern um an <gray>Eisen</gray> und <aqua>Diamanten</aqua> zu kommen.
+
+                Du kannst dich für eine der drei Rollen entscheiden.
+                Die Fähigkeiten der Rollen befinden sich in der Hotbar und können mit dem <light_purple>Rechtsklick</light_purple> ausgelöst werden.
+                Die Fähigkeiten:
+                <bold><blue>Tank:</blue></bold> Unbesiegbar für 5 Sekunden
+                <bold><green>Healer:</green></bold> Wirft starke Heiltränke
+                <bold><red>Knight</red></bold>: Verschießt einen Blitz auf einen Spieler (50 Block Radius)"""));
     }
 }

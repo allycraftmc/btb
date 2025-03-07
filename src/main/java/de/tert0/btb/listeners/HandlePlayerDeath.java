@@ -29,7 +29,7 @@ public class HandlePlayerDeath implements Listener {
 
         e.getDrops().removeIf(item -> item.getPersistentDataContainer().has(CustomItem.KEY));
 
-        AtomicInteger count = new AtomicInteger(25);
+        AtomicInteger count = new AtomicInteger(20);
         BTB.getPlugin().getServer().getScheduler().runTaskTimer(BTB.getPlugin(), task -> {
             if(!e.getPlayer().isOnline()) {
                 task.cancel();
