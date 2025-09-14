@@ -1,3 +1,7 @@
+<p align="center">
+  <img alt="Project Logo" src="assets/logo.png" />
+</p>
+
 # Bedrock Tower Battle
 Bedrock Tower Battle is a Minecraft PVP Minigame.
 The plugin is currently built specific for our needs and some stuff is hard coded (that should be configurable).
