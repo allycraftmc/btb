@@ -26,20 +26,20 @@ public class Game {
         this.plugin = plugin;
     }
 
-    boolean can_start() {
+    boolean canStart() {
         boolean teamsFull = Arrays.stream(Team.values()).allMatch(team -> plugin.teams.get(team).size() == plugin.config.maxTeamSize());
         return teamsFull && plugin.gameState == GameState.Lobby && plugin.config.autoStart();
     }
 
     public void try_start() {
-        if(!can_start()) return;
+        if(!canStart()) return;
 
         starting.set(true);
 
         AtomicInteger count = new AtomicInteger(10);
 
         plugin.getServer().getScheduler().runTaskTimer(plugin, task -> {
-            if(!can_start()) {
+            if(!canStart()) {
                 task.cancel();
                 plugin.getServer().broadcast(Component.text("Spielstart abgebrochen!", NamedTextColor.DARK_RED));
                 starting.set(false);
@@ -147,7 +147,7 @@ public class Game {
 
     public void setupPlayer(Player player) {
         switch (Role.getByPlayer(player)) {
-            case Role.Knight -> {
+            case Knight -> {
                 // Give Lighter
                 ItemStack itemStack = new ItemStack(Material.LIGHTNING_ROD);
                 ItemMeta itemMeta = itemStack.getItemMeta();
@@ -156,7 +156,7 @@ public class Game {
                 itemStack.setItemMeta(itemMeta);
                 player.getInventory().addItem(itemStack);
             }
-            case Role.Healer -> {
+            case Healer -> {
                 // Give Infinite Heal Potion
                 ItemStack itemStack = new ItemStack(Material.SPLASH_POTION);
                 PotionMeta potionMetaMeta = (PotionMeta) itemStack.getItemMeta();
@@ -166,7 +166,7 @@ public class Game {
                 itemStack.setItemMeta(potionMetaMeta);
                 player.getInventory().addItem(itemStack);
             }
-            case Role.Tank -> {
+            case Tank -> {
                 // Give Barrier
                 ItemStack itemStack = new ItemStack(Material.BARRIER);
                 ItemMeta itemMeta = itemStack.getItemMeta();

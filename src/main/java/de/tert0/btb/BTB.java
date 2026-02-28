@@ -6,6 +6,7 @@ import de.tert0.btb.commands.HazardCommand;
 import de.tert0.btb.commands.StartCommand;
 import de.tert0.btb.hazards.HazardManager;
 import de.tert0.btb.listeners.*;
+import io.papermc.paper.scoreboard.numbers.NumberFormat;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
@@ -97,24 +98,26 @@ public final class BTB extends JavaPlugin {
         lobbyWorld = Bukkit.getWorld("world");
         assert lobbyWorld != null;
 
-        lobbyWorld.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
-        lobbyWorld.setGameRule(GameRule.DO_WEATHER_CYCLE, false);
-        lobbyWorld.setGameRule(GameRule.SPAWN_RADIUS, 0);
-        lobbyWorld.setGameRule(GameRule.DO_MOB_SPAWNING, false);
+        lobbyWorld.setGameRule(GameRules.ADVANCE_TIME, false);
+        lobbyWorld.setGameRule(GameRules.ADVANCE_WEATHER, false);
+        lobbyWorld.setGameRule(GameRules.RESPAWN_RADIUS, 0);
+        lobbyWorld.setGameRule(GameRules.SPAWN_MOBS, false);
+        lobbyWorld.setGameRule(GameRules.PVP, false);
+        lobbyWorld.setGameRule(GameRules.LOCATOR_BAR, false);
         lobbyWorld.setTime(1000);
         lobbyWorld.setStorm(false);
         lobbyWorld.setClearWeatherDuration(0);
-        lobbyWorld.setPVP(false);
 
-        btbWorld.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
-        btbWorld.setGameRule(GameRule.DO_WEATHER_CYCLE, false);
-        btbWorld.setGameRule(GameRule.SPAWN_RADIUS, 0);
-        btbWorld.setGameRule(GameRule.DO_MOB_SPAWNING, false);
-        btbWorld.setGameRule(GameRule.KEEP_INVENTORY, false);
+        btbWorld.setGameRule(GameRules.ADVANCE_TIME, false);
+        btbWorld.setGameRule(GameRules.ADVANCE_WEATHER, false);
+        btbWorld.setGameRule(GameRules.RESPAWN_RADIUS, 0);
+        btbWorld.setGameRule(GameRules.SPAWN_MOBS, false);
+        btbWorld.setGameRule(GameRules.KEEP_INVENTORY, false);
+        btbWorld.setGameRule(GameRules.PVP, true);
+        btbWorld.setGameRule(GameRules.LOCATOR_BAR, false);
         btbWorld.setTime(1000);
         btbWorld.setStorm(false);
         btbWorld.setClearWeatherDuration(0);
-        btbWorld.setPVP(true);
 
         teams = new HashMap<>();
         for(Team team : Team.values()) {
@@ -180,6 +183,7 @@ public final class BTB extends JavaPlugin {
         ScoreboardManager scoreboardManager = this.getServer().getScoreboardManager();
         scoreboard = scoreboardManager.getNewScoreboard();
         objective = scoreboard.registerNewObjective("teams", Criteria.DUMMY, Component.text("AllyCraft - BTB", NamedTextColor.YELLOW));
+        objective.numberFormat(NumberFormat.blank());
 
         org.bukkit.scoreboard.Team emptyAboveTeam = scoreboard.registerNewTeam("SCOREBOARD_EMPTY_ABOVE");
         emptyAboveTeam.addEntry(" ");

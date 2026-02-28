@@ -4,13 +4,13 @@ services:
     environment:
       - "EULA=true"
       - "TYPE=paper"
-      - "VERSION=1.21.4"
+      - "VERSION=1.21.11"
       - "MEMORY=2G"
       - "DATAPACKS=/data/datapacks/btb"
       - "MODE=creative"
       - "LEVEL_TYPE=minecraft:flat"
       - "DIFFICULTY=peaceful"
-      - "PLUGINS=https://github.com/IntellectualSites/FastAsyncWorldEdit/releases/download/2.12.3/FastAsyncWorldEdit-Paper-2.12.3.jar"
+      - "PLUGINS=https://github.com/IntellectualSites/FastAsyncWorldEdit/releases/download/2.15.0/FastAsyncWorldEdit-Paper-2.15.0.jar"
     env_file: .env
     volumes:
       - "${WORLD_PATH:?error}:/data/world"

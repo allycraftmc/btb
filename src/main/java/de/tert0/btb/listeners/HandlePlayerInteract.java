@@ -60,7 +60,7 @@ public class HandlePlayerInteract implements Listener {
             }
 
             switch(itemType) {
-                case CustomItem.Lighter -> {
+                case Lighter -> {
                     RayTraceResult result = player.getWorld().rayTrace(
                             player.getEyeLocation(), player.getLocation().getDirection(),
                             50, FluidCollisionMode.NEVER, true,
@@ -92,7 +92,7 @@ public class HandlePlayerInteract implements Listener {
                         }
                     }, 1);
                 }
-                case CustomItem.DamageBarrier -> {
+                case DamageBarrier -> {
                     if(!event.getAction().isRightClick()) return;
 
                     // TODO play sound

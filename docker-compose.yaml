@@ -15,7 +15,7 @@ services:
       - "EULA=true"
       - "TYPE=PAPER"
       - "MEMORY=2G"
-      - "VERSION=1.21.4"
+      - "VERSION=1.21.11"
       - "SPAWN_PROTECTION=0"
       - "WORLD=/worlds/lobby"
       - "FORCE_WORLD_COPY=true"
