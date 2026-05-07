@@ -18,11 +18,11 @@ repositories {
 }
 
 dependencies {
-    compileOnly "io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT"
-    implementation group: 'commons-io', name: 'commons-io', version: '2.15.1'
+    compileOnly "io.papermc.paper:paper-api:26.1.2.build.+"
+    implementation "commons-io:commons-io:2.15.1"
 }
 
-def targetJavaVersion = 21
+def targetJavaVersion = 25
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
     sourceCompatibility = javaVersion

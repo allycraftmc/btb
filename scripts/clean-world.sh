@@ -27,6 +27,7 @@ set -x
 mcaselector --mode delete --world "$1" --query "Palette = \"air\""
 
 # delete player related data
+# TODO: update to 26.1 world changes
 rm -rf "$1/advancements"
 rm -rf "$1/stats"
 rm -rf "$1/playerdata"
